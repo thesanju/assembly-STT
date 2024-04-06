@@ -1,19 +1,10 @@
 import streamlit as st
 import assemblyai as aai
-
-
 import toml
 
-def get_api_key():
-    try:
-        config = toml.load("config.toml")
-        return config["assemblyai"]["api_key"]
-    except FileNotFoundError:
-        raise Exception("Config file not found.")
-    except KeyError:
-        raise Exception("API key not found in config file.")
 
-api_key = get_api_key()
+
+api_key = st.secrets["API_KEY"]
 
 aai.settings.api_key = api_key
 transcriber = aai.Transcriber()
